@@ -1,6 +1,7 @@
 import telebot
 import requests
 
+# ⚠️ ध्यान दें: अगर आपने पुराना टोकन रिवोक किया है, तो यहाँ नया टोकन लगा दें!
 TOKEN = '8773653442:AAFKqLfghw-DSY1hAVkFZRwYbnTPqYNd9oo'
 bot = telebot.TeleBot(TOKEN)
 
@@ -64,7 +65,13 @@ def fetch_sim_info(message):
         bot.send_message(message.chat.id, final_msg)
 
     except Exception as e:
+        # Error log mein dikhane ke liye print bhi kar diya
+        print(f"⚠️ Exception occurred: {e}")
         bot.send_message(message.chat.id, f"❌ Error: {e}")
 
 print("✅ Bot ekdum ready hai! Ab Telegram par check karein...")
-bot.infinity_polling()
+
+# 🚀 यह हिस्सा Railway के लिए बहुत जरूरी है
+if __name__ == "__main__":
+    bot.remove_webhook()  # पुराना कनेक्शन हटाया
+    bot.infinity_polling()  # बॉट शुरू किया
